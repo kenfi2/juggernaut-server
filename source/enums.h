@@ -1,0 +1,10 @@
+#ifndef FS_ENUMS_H
+#define FS_ENUMS_H
+
+enum ThreadState {
+	THREAD_STATE_RUNNING,
+	THREAD_STATE_CLOSING,
+	THREAD_STATE_TERMINATED,
+};
+
+#endif

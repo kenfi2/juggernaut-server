@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{241c2336-0170-4f75-a3c7-e7f44ccd6a95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Server">
+      <UniqueIdentifier>{58211484-8854-4b50-ba05-04fd90671aaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Thread">
+      <UniqueIdentifier>{9566b9c8-eaf2-48e1-a6de-e7d61fbee5b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crypt">
+      <UniqueIdentifier>{afafd326-9925-431a-a409-133cf899a700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Server\Protocols">
+      <UniqueIdentifier>{832b6e7f-99b8-4895-b125-38478ba9160a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\configmanager.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\signals.cpp" />
+    <ClCompile Include="source\game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="source\server.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
+    <ClCompile Include="source\outputmessage.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
+    <ClCompile Include="source\networkmessage.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
+    <ClCompile Include="source\connection.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
+    <ClCompile Include="source\scheduler.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="source\tasks.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="source\tools.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\xtea.cpp">
+      <Filter>Crypt</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rsa.cpp">
+      <Filter>Crypt</Filter>
+    </ClCompile>
+    <ClCompile Include="source\protocollogin.cpp">
+      <Filter>Server\Protocols</Filter>
+    </ClCompile>
+    <ClCompile Include="source\protocol.cpp">
+      <Filter>Server\Protocols</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\configmanager.h" />
+    <ClInclude Include="source\signals.h" />
+    <ClInclude Include="source\includes.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="source\enums.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\const.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\lockfree.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\server.h">
+      <Filter>Server</Filter>
+    </ClInclude>
+    <ClInclude Include="source\outputmessage.h">
+      <Filter>Server</Filter>
+    </ClInclude>
+    <ClInclude Include="source\networkmessage.h">
+      <Filter>Server</Filter>
+    </ClInclude>
+    <ClInclude Include="source\connection.h">
+      <Filter>Server</Filter>
+    </ClInclude>
+    <ClInclude Include="source\scheduler.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="source\tasks.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="source\thread_holder_base.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="source\tools.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\xtea.h">
+      <Filter>Crypt</Filter>
+    </ClInclude>
+    <ClInclude Include="source\rsa.h">
+      <Filter>Crypt</Filter>
+    </ClInclude>
+    <ClInclude Include="source\protocol.h">
+      <Filter>Server\Protocols</Filter>
+    </ClInclude>
+    <ClInclude Include="source\protocollogin.h">
+      <Filter>Server\Protocols</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
