@@ -22,13 +22,15 @@
 
 #include "const.h"
 
+#include "luaobject.h"
+
 class Item;
 class Creature;
 class Player;
 struct Position;
 class RSA;
 
-class NetworkMessage
+class NetworkMessage : public LuaObject
 {
 	public:
 		using MsgSize_t = uint16_t;

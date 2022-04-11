@@ -12,3 +12,7 @@ using Json = nlohmann::json;
 #pragma warning( disable : 4244 )
 #pragma warning( disable : 4267 )
 
+#ifdef _MSC_VER
+#pragma comment(lib, "Dbghelp.lib")
+#endif
+

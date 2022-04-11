@@ -23,7 +23,7 @@
 #include "connection.h"
 #include "xtea.h"
 
-class Protocol : public std::enable_shared_from_this<Protocol>
+class Protocol : public LuaObject
 {
 public:
 	explicit Protocol(Connection_ptr connection) : connection(connection) {}

@@ -1,0 +1,13 @@
+{
+  "ip": "127.0.0.1",
+  "mysqlPort": 3306,
+  "rsa": false,
+  "loginPort": 7171,
+  "gamePort": 7172,
+  "statusPort": 7171,
+  "maxPacketsPerSecond": 200,
+  "testing": {
+    "asfs": 7171
+  },
+  "bindOnlyGlobalAddress": true
+}

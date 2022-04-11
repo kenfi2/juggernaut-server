@@ -20,6 +20,7 @@
 #include "includes.h"
 
 #include "protocollogin.h"
+#include "configmanager.h"
 
 #include "outputmessage.h"
 #include "tasks.h"
@@ -27,12 +28,14 @@
 #include <iomanip>
 #include "tools.h"
 
+extern ConfigManager g_config;
+
 void ProtocolLogin::onRecvFirstMessage(NetworkMessage& msg)
 {
-	/*if (!Protocol::RSA_decrypt(msg)) {
+	if (g_config.getBoolean("rsa") && !Protocol::RSA_decrypt(msg)) {
 		disconnect();
 		return;
-	}*/
+	}
 
 	xtea::key key;
 	key[0] = msg.get<uint32_t>();

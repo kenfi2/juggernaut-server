@@ -20,6 +20,9 @@
     <Filter Include="Server\Protocols">
       <UniqueIdentifier>{832b6e7f-99b8-4895-b125-38478ba9160a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lua">
+      <UniqueIdentifier>{c1d9d4da-96a4-4431-aef6-bcf3753e717e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\configmanager.cpp" />
@@ -60,6 +63,9 @@
     </ClCompile>
     <ClCompile Include="source\protocol.cpp">
       <Filter>Server\Protocols</Filter>
+    </ClCompile>
+    <ClCompile Include="source\luaobject.cpp">
+      <Filter>Lua</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="source\protocollogin.h">
       <Filter>Server\Protocols</Filter>
+    </ClInclude>
+    <ClInclude Include="source\luaobject.h">
+      <Filter>Lua</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

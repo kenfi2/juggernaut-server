@@ -74,14 +74,16 @@ void mainLoader(int, char*[], ServiceManager* services)
 #endif
 	std::cout << std::endl;
 
-	//set RSA key
-	try {
-		g_RSA.loadPEM("key.pem");
-	}
-	catch (const std::exception& e) {
-		std::cout << "> ERROR: " << e.what() << std::endl;
-		startupErrorMessage("RSA not loaded!");
-		return;
+	if (g_config.getBoolean("rsa")) {
+		//set RSA key
+		try {
+			g_RSA.loadPEM("key.pem");
+		}
+		catch (const std::exception& e) {
+			std::cout << "> ERROR: " << e.what() << std::endl;
+			startupErrorMessage("RSA not loaded!");
+			return;
+		}
 	}
 
 	if (!g_config.load()) {

@@ -3,6 +3,7 @@
 
 static const Json DefaultJsonConfig{
 	{"ip", "127.0.0.1"},
+	{"rsa", true},
 	{"mysqlPort", 3306},
 	{"loginPort", 7171},
 	{"gamePort", 7172},

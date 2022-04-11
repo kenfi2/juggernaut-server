@@ -148,6 +148,9 @@ ehthumbs.db
 # Folder config file
 Desktop.ini
 
+# Exe file
+juggernaut-server.exe
+
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 

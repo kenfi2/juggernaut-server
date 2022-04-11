@@ -59,7 +59,7 @@ class ConnectionManager
 		std::mutex m_connectionManagerLock;
 };
 
-class Connection : public std::enable_shared_from_this<Connection>
+class Connection : public LuaObject
 {
 	public:
 		// non-copyable
@@ -94,6 +94,9 @@ class Connection : public std::enable_shared_from_this<Connection>
 		uint32_t getIP();
 
 	private:
+		Connection_ptr getThis() {
+			return std::static_pointer_cast<Connection>(shared_from_this());
+		}
 		void parseHeader(const boost::system::error_code& error);
 		void parsePacket(const boost::system::error_code& error);
 

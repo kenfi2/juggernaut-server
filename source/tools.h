@@ -12,4 +12,11 @@ uint32_t adlerChecksum(const uint8_t* data, size_t length);
 
 int64_t OTSYS_TIME();
 
+// Demangle names for GNU g++ compiler
+std::string demangle_name(const char* name);
+
+// Returns the name of a type
+template<typename T>
+std::string demangle_type() { return demangle_name(typeid(T).name()); }
+
 #endif
