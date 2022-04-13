@@ -90,6 +90,9 @@
     <ClCompile Include="source\protocollogin.cpp">
       <Filter>Server\Protocols</Filter>
     </ClCompile>
+    <ClCompile Include="source\fileloader.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\signals.h" />
@@ -161,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="source\protocollogin.h">
       <Filter>Server\Protocols</Filter>
+    </ClInclude>
+    <ClInclude Include="source\fileloader.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

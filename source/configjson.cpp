@@ -1,5 +1,7 @@
 #include "includes.h"
+
 #include "configjson.h"
+#include "fileloader.h"
 
 bool jsonCompareKey(const nlohmann::json* baseJson, const nlohmann::json* compareJson)
 {

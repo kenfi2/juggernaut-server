@@ -152,6 +152,7 @@
     <ClCompile Include="source\database.cpp" />
     <ClCompile Include="source\databasemanager.cpp" />
     <ClCompile Include="source\databasetasks.cpp" />
+    <ClCompile Include="source\fileloader.cpp" />
     <ClCompile Include="source\game.cpp" />
     <ClCompile Include="source\iologindata.cpp" />
     <ClCompile Include="source\luaobject.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="source\databasemanager.h" />
     <ClInclude Include="source\databasetasks.h" />
     <ClInclude Include="source\enums.h" />
+    <ClInclude Include="source\fileloader.h" />
     <ClInclude Include="source\game.h" />
     <ClInclude Include="source\includes.h" />
     <ClInclude Include="source\iologindata.h" />
