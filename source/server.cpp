@@ -22,9 +22,9 @@
 #include "outputmessage.h"
 #include "server.h"
 #include "scheduler.h"
-#include "configmanager.h"
+#include "configjson.h"
 
-extern ConfigManager g_config;
+extern ConfigJson g_json;
 
 ServiceManager::~ServiceManager()
 {
@@ -165,9 +165,9 @@ void ServicePort::open(uint16_t port)
 	pendingStart = false;
 
 	try {
-		if (g_config.getBoolean("bindOnlyGlobalAddress")) {
+		if (g_json.getConfig<bool>("bindOnlyGlobalAddress")) {
 			acceptor.reset(new boost::asio::ip::tcp::acceptor(io_service, boost::asio::ip::tcp::endpoint(
-			            boost::asio::ip::address(boost::asio::ip::address_v4::from_string(g_config.getString("ip"))), serverPort)));
+			            boost::asio::ip::address(boost::asio::ip::address_v4::from_string(g_json.getConfig<std::string>("ip"))), serverPort)));
 		} else {
 			acceptor.reset(new boost::asio::ip::tcp::acceptor(io_service, boost::asio::ip::tcp::endpoint(
 			            boost::asio::ip::address(boost::asio::ip::address_v4(INADDR_ANY)), serverPort)));

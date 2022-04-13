@@ -1,25 +1,45 @@
 #include "includes.h"
 
 #include "game.h"
-#include "configmanager.h"
+#include "configjson.h"
 #include "server.h"
 #include "protocollogin.h"
 #include "rsa.h"
 #include "tasks.h"
 #include "scheduler.h"
 #include "tools.h"
+#include "databasetasks.h"
+#include "databasemanager.h"
 
 std::mutex g_loaderLock;
 std::condition_variable g_loaderSignal;
 std::unique_lock<std::mutex> g_loaderUniqueLock(g_loaderLock);
 
 Game g_game;
-ConfigManager g_config;
 RSA g_RSA;
 Dispatcher g_dispatcher;
 Scheduler g_scheduler;
+DatabaseTasks g_databaseTasks;
 
-void mainLoader(int, char* [], ServiceManager* services);
+ConfigJson g_json
+{
+	{"ip", "127.0.0.1"},
+	{"rsa", true},
+	{"loginPort", 7171},
+	{"gamePort", 7172},
+	{"mysqlPort", 3306},
+	{"mysqlHost", "127.0.0.1"},
+	{"mysqlUser", "root"},
+	{"mysqlPass", ""},
+	{"mysqlDatabase", "database"},
+	{"mysqlSock", ""},
+	{"statusPort", 7171},
+	{"bindOnlyGlobalAddress", true},
+	{"startupDatabaseOptimization", true},
+	{"maxPacketsPerSecond", 250}
+};
+
+void mainLoader(int, char* argv[], ServiceManager* services);
 
 int main(int argc, char* argv[])
 {
@@ -39,10 +59,12 @@ int main(int argc, char* argv[])
 	else {
 		std::cout << ">> No services running. The server is NOT online." << std::endl;
 		g_scheduler.shutdown();
+		g_databaseTasks.shutdown();
 		g_dispatcher.shutdown();
 	}
 
 	g_scheduler.join();
+	g_databaseTasks.join();
 	g_dispatcher.join();
 	return 0;
 }
@@ -53,7 +75,7 @@ void startupErrorMessage(std::string msg)
 	g_loaderSignal.notify_all();
 }
 
-void mainLoader(int, char*[], ServiceManager* services)
+void mainLoader(int, char* argv[], ServiceManager* services)
 {
 	g_game.setGameState(GAME_STATE_STARTUP);
 
@@ -74,7 +96,12 @@ void mainLoader(int, char*[], ServiceManager* services)
 #endif
 	std::cout << std::endl;
 
-	if (g_config.getBoolean("rsa")) {
+	if (!g_json.loadFile("config.json")) {
+		startupErrorMessage("Config not loaded!");
+		return;
+	}
+
+	if (g_json.getConfig<bool>("rsa")) {
 		//set RSA key
 		try {
 			g_RSA.loadPEM("key.pem");
@@ -86,16 +113,35 @@ void mainLoader(int, char*[], ServiceManager* services)
 		}
 	}
 
-	if (!g_config.load()) {
-		startupErrorMessage("Config not loaded!");
+	std::cout << ">> Establishing database connection..." << std::flush;
+
+	if (!Database::getInstance().connect()) {
+		startupErrorMessage("Failed to connect to database.");
 		return;
 	}
 
+	std::cout << " MySQL " << Database::getClientVersion() << std::endl;
+
+	// run database manager
+	std::cout << ">> Running database manager" << std::endl;
+
+	if (!DatabaseManager::isDatabaseSetup()) {
+		startupErrorMessage("The database you have specified in config.lua is empty, please import the schema.sql to your database.");
+		return;
+	}
+
+	g_databaseTasks.start();
+
+	if (g_json.getConfig<bool>("startupDatabaseOptimization") && !DatabaseManager::optimizeTables()) {
+		std::cout << "> No tables were optimized." << std::endl;
+	}
+
+	std::cout << ">> Initializing gamestate" << std::endl;
 	g_game.setGameState(GAME_STATE_INIT);
 
 	// Game client protocols
 	//services->add<ProtocolGame>(static_cast<uint16_t>(GAME_PORT));
-	services->add<ProtocolLogin>(g_config.getNumber<uint16_t>("loginPort"));
+	services->add<ProtocolLogin>(g_json.getConfig<uint16_t>("loginPort"));
 
 	g_game.start(services);
 	g_game.setGameState(GAME_STATE_NORMAL);

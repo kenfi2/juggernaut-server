@@ -1,41 +1,52 @@
-/**
- * The Forgotten Server - a free and open-source MMORPG server emulator
- * Copyright (C) 2019  Mark Samman <mark.samman@gmail.com>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along
- * with this program; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- */
-
 #include "includes.h"
 
+#include "tools.h"
+
 #include "protocollogin.h"
-#include "configmanager.h"
+#include "configjson.h"
 
 #include "outputmessage.h"
 #include "tasks.h"
 
 #include <iomanip>
-#include "tools.h"
+#include "iologindata.h"
 
-extern ConfigManager g_config;
+extern ConfigJson g_json;
+
+void ProtocolLogin::verifyAccount(const std::string& email, const std::string& password)
+{
+	uint8_t opcodeMessage = IOLoginData::verifyAccount(email, password);
+
+	auto output = OutputMessagePool::getOutputMessage();
+	output->add(opcodeMessage);
+	send(output);
+
+	if (opcodeMessage != LoginSuccess) {
+		disconnect();
+	}
+}
+
+void ProtocolLogin::createAccount(const std::string& username, const std::string& email, const std::string& password)
+{
+	uint8_t opcodeMessage = IOLoginData::createAccount(username, email, password);
+
+	auto output = OutputMessagePool::getOutputMessage();
+	output->add(opcodeMessage);
+	send(output);
+
+	if (opcodeMessage != CreateAccountSuccess) {
+		disconnect();
+	}
+}
 
 void ProtocolLogin::onRecvFirstMessage(NetworkMessage& msg)
 {
-	if (g_config.getBoolean("rsa") && !Protocol::RSA_decrypt(msg)) {
+	if (g_json.getConfig<bool>("rsa") && !Protocol::RSA_decrypt(msg)) {
 		disconnect();
 		return;
 	}
+
+	uint8_t action = msg.getByte();
 
 	xtea::key key;
 	key[0] = msg.get<uint32_t>();
@@ -45,6 +56,19 @@ void ProtocolLogin::onRecvFirstMessage(NetworkMessage& msg)
 	enableXTEAEncryption();
 	setXTEAKey(std::move(key));
 
-	std::string email = msg.getString();
-	std::string password = msg.getString();
+	auto thisPtr = std::static_pointer_cast<ProtocolLogin>(shared_from_this());
+	if (action == LoginOpcodes::DoLogin) {
+		std::string email = msg.getString();
+		std::string password = msg.getString();
+
+		g_dispatcher.addTask(createTask(std::bind(&ProtocolLogin::verifyAccount, thisPtr, email, password)));
+	}
+	else if (action == LoginOpcodes::CreateAccount) {
+		std::string username = msg.getString();
+		std::string email = msg.getString();
+		std::string password = msg.getString();
+
+		g_dispatcher.addTask(createTask(std::bind(&ProtocolLogin::createAccount, thisPtr, username, email, password)));
+	}
+
 }

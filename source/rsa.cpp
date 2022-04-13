@@ -24,9 +24,6 @@
 #include <cryptopp/base64.h>
 #include <cryptopp/osrng.h>
 
-#include <fstream>
-#include <sstream>
-
 static CryptoPP::AutoSeededRandomPool prng;
 
 void RSA::decrypt(char* msg) const

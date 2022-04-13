@@ -1,7 +1,8 @@
 #include "includes.h"
 
-#include "luaobject.h"
 #include "tools.h"
+
+#include "luaobject.h"
 
 std::string LuaObject::getClassName() const
 {

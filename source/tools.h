@@ -19,4 +19,6 @@ std::string demangle_name(const char* name);
 template<typename T>
 std::string demangle_type() { return demangle_name(typeid(T).name()); }
 
+std::string transformToSHA1(const std::string& input);
+
 #endif

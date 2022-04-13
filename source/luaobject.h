@@ -12,6 +12,7 @@ public:
 	LuaObject& operator=(const LuaObject&) = delete;
 
 	virtual std::string getClassName() const;
+
 };
 
 #endif

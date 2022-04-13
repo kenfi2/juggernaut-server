@@ -17,25 +17,21 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef FS_RSA_H_C4E277DA8E884B578DDBF0566F504E91
-#define FS_RSA_H_C4E277DA8E884B578DDBF0566F504E91
+#ifndef FS_DATABASEMANAGER_H_2B75821C555E4D1D83E32B20D683217C
+#define FS_DATABASEMANAGER_H_2B75821C555E4D1D83E32B20D683217C
+#include "database.h"
 
-#include <cryptopp/rsa.h>
-
-class RSA
+class DatabaseManager
 {
 	public:
-		RSA() = default;
+		static bool tableExists(const std::string& tableName);
 
-		// non-copyable
-		RSA(const RSA&) = delete;
-		RSA& operator=(const RSA&) = delete;
+		static int32_t getDatabaseVersion();
+		static bool isDatabaseSetup();
 
-		void loadPEM(const std::string& filename);
-		void decrypt(char* msg) const;
+		static bool optimizeTables();
 
-	private:
-		CryptoPP::RSA::PrivateKey pk;
+		static bool getDatabaseConfig(const std::string& config, int32_t& value);
+		static void registerDatabaseConfig(const std::string& config, int32_t value);
 };
-
 #endif

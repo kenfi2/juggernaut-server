@@ -23,9 +23,17 @@
     <Filter Include="Lua">
       <UniqueIdentifier>{c1d9d4da-96a4-4431-aef6-bcf3753e717e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{a4c0ea16-cca0-4093-9175-5fd80fe6e027}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Database">
+      <UniqueIdentifier>{4da37ea9-b8b4-4251-9ff2-ad1e7539d8eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Database\IO">
+      <UniqueIdentifier>{38c1ec5a-9943-4452-a21f-b0e42ded6377}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\configmanager.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\signals.cpp" />
     <ClCompile Include="source\game.cpp">
@@ -58,18 +66,32 @@
     <ClCompile Include="source\rsa.cpp">
       <Filter>Crypt</Filter>
     </ClCompile>
-    <ClCompile Include="source\protocollogin.cpp">
-      <Filter>Server\Protocols</Filter>
-    </ClCompile>
     <ClCompile Include="source\protocol.cpp">
       <Filter>Server\Protocols</Filter>
     </ClCompile>
     <ClCompile Include="source\luaobject.cpp">
       <Filter>Lua</Filter>
     </ClCompile>
+    <ClCompile Include="source\configjson.cpp">
+      <Filter>Config</Filter>
+    </ClCompile>
+    <ClCompile Include="source\database.cpp">
+      <Filter>Database</Filter>
+    </ClCompile>
+    <ClCompile Include="source\databasemanager.cpp">
+      <Filter>Database</Filter>
+    </ClCompile>
+    <ClCompile Include="source\databasetasks.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="source\iologindata.cpp">
+      <Filter>Database\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="source\protocollogin.cpp">
+      <Filter>Server\Protocols</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\configmanager.h" />
     <ClInclude Include="source\signals.h" />
     <ClInclude Include="source\includes.h">
       <Filter>Resource Files</Filter>
@@ -119,11 +141,26 @@
     <ClInclude Include="source\protocol.h">
       <Filter>Server\Protocols</Filter>
     </ClInclude>
-    <ClInclude Include="source\protocollogin.h">
-      <Filter>Server\Protocols</Filter>
-    </ClInclude>
     <ClInclude Include="source\luaobject.h">
       <Filter>Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="source\configjson.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="source\database.h">
+      <Filter>Database</Filter>
+    </ClInclude>
+    <ClInclude Include="source\databasemanager.h">
+      <Filter>Database</Filter>
+    </ClInclude>
+    <ClInclude Include="source\databasetasks.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="source\iologindata.h">
+      <Filter>Database\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="source\protocollogin.h">
+      <Filter>Server\Protocols</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

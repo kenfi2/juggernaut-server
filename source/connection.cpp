@@ -24,9 +24,9 @@
 #include "outputmessage.h"
 #include "server.h"
 #include "tasks.h"
-#include "configmanager.h"
+#include "configjson.h"
 
-extern ConfigManager g_config;
+extern ConfigJson g_json;
 
 Connection_ptr ConnectionManager::createConnection(boost::asio::io_service& io_service, ConstServicePort_ptr servicePort)
 {
@@ -142,7 +142,7 @@ void Connection::parseHeader(const boost::system::error_code& error)
 	}
 
 	uint32_t timePassed = std::max<uint32_t>(1, (time(nullptr) - m_timeConnected) + 1);
-	if ((++m_packetsSent / timePassed) > g_config.getNumber<uint32_t>("maxPacketsPerSecond")) {
+	if ((++m_packetsSent / timePassed) > g_json.getConfig<uint32_t>("maxPacketsPerSecond")) {
 		std::cout << convertIPToString(getIP()) << " disconnected for exceeding packet per second limit." << std::endl;
 		close();
 		return;
